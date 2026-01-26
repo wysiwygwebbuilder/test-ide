@@ -1,9 +1,33 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="dark:bg-gray-900">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Воробей — Удивительная птица</title>
+    <title>Воробей — Удивительная птица | Интересные факты, образ жизни, описание</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Узнайте все о воробьях: их образе жизни, привычках, интересных фактах и особенностях. Исследуйте мир этих удивительных птиц, которые окружают нас каждый день.">
+    <meta name="keywords" content="воробей, птицы, ornithology, птицы России, животные, природа, фауна, птицеводство, наблюдение за птицами">
+    <meta name="author" content="Воробей.info">
+    <meta name="robots" content="index, follow">
+    <meta name="geo.region" content="RU">
+    <meta name="language" content="Russian">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/sparrow">
+    <meta property="og:title" content="Воробей — Удивительная птица | Интересные факты, образ жизни, описание">
+    <meta property="og:description" content="Узнайте все о воробьях: их образе жизни, привычках, интересных фактах и особенностях. Исследуйте мир этих удивительных птиц, которые окружают нас каждый день.">
+    <meta property="og:image" content="sparrow_high_quality.png">
+    <meta property="og:site_name" content="Воробей.info">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://example.com/sparrow">
+    <meta property="twitter:title" content="Воробей — Удивительная птица | Интересные факты, образ жизни, описание">
+    <meta property="twitter:description" content="Узнайте все о воробьях: их образе жизни, привычках, интересных фактах и особенностях. Исследуйте мир этих удивительных птиц, которые окружают нас каждый день.">
+    <meta property="twitter:image" content="sparrow_high_quality.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,6 +37,9 @@
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+        .dark .gradient-bg {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+        }
         .card-hover {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -20,72 +47,444 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .dark .theme-toggle {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        /* Анимации появления */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-delay-1 {
+            animation: fadeIn 1s ease-in 0.2s forwards;
+            opacity: 0;
+        }
+        .fade-in-delay-2 {
+            animation: fadeIn 1s ease-in 0.4s forwards;
+            opacity: 0;
+        }
+        .fade-in-delay-3 {
+            animation: fadeIn 1s ease-in 0.6s forwards;
+            opacity: 0;
+        }
+        /* Анимация для счетчиков */
+        .counter {
+            display: inline-block;
+            font-weight: bold;
+            color: #3b82f6;
+        }
+        .dark .counter {
+            color: #60a5fa;
+        }
+        /* Анимация при наведении на элементы списка */
+        .fact-item {
+            transition: all 0.3s ease;
+        }
+        .fact-item:hover {
+            transform: translateX(5px);
+        }
+        /* Пульсирующий эффект для изображений */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        /* Анимация для заголовков */
+        .title-animation {
+            position: relative;
+        }
+        .title-animation::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            transition: width 0.5s ease;
+        }
+        .dark .title-animation::after {
+            background: linear-gradient(to right, #2d3748, #4a5568);
+        }
+        h2.title-animation:hover::after {
+            width: 100%;
+        }
+        /* Анимация для ссылок */
+        .animate-underline {
+            position: relative;
+        }
+        .animate-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .dark .animate-underline::after {
+            background-color: #60a5fa;
+        }
+        .animate-underline:hover::after {
+            width: 100%;
+        }
+        /* Стили для навигации */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 90;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        .dark .navbar {
+            background-color: rgba(17, 24, 39, 0.1);
+        }
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+        .dark .nav-link:hover,
+        .dark .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                top: 3.5rem;
+                left: 0;
+                right: 0;
+                background: rgba(30, 41, 59, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: clip-path 0.4s ease;
+            }
+            .nav-links.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            .nav-link {
+                display: block;
+                margin: 0.5rem 1rem;
+                text-align: center;
+            }
+        }
+        /* Оптимизация производительности */
+        img {
+            max-width: 100%;
+            height: auto;
+            loading: lazy;
+        }
+        
+        /* Доступность */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Фокус индикаторы */
+        :focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        .dark:focus {
+            outline: 2px solid #60a5fa;
+        }
     </style>
+    <script>
+        // Проверяем сохраненную тему в localStorage
+        const savedTheme = localStorage.getItem('theme');
+        
+        // Если тема была сохранена, применяем её
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else if (savedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            // Если тема не была сохранена, определяем по системным настройкам
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        // Функция переключения темы
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            const isDark = htmlElement.classList.contains('dark');
+            
+            if (isDark) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        
+        // Добавляем слушатель для системной темы
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
+        });
+
+        // Анимации при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Анимация появления для основных элементов
+            const elements = document.querySelectorAll('.card-hover, .title-animation');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 200 * index);
+            });
+
+            // Анимация счетчиков
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                animateCounter(counter);
+            });
+
+            // Добавляем обработчики для плавной прокрутки
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Убираем активный класс со всех ссылок
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Добавляем активный класс к текущей ссылке
+                    this.classList.add('active');
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80, // компенсируем высоту навигации
+                            behavior: 'smooth'
+                        });
+                        
+                        // Закрываем мобильное меню, если открыто
+                        document.querySelector('.nav-links').classList.remove('active');
+                    }
+                });
+            });
+
+            // Отслеживаем прокрутку для подсветки активной секции
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollPos = window.scrollY + 100; // корректируем для точности
+                
+                sections.forEach(section => {
+                    const top = section.offsetTop;
+                    const bottom = top + section.offsetHeight;
+                    const id = section.getAttribute('id');
+                    
+                    if (scrollPos >= top && scrollPos <= bottom) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Обработчик для мобильного меню
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinksContainer = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinksContainer.classList.toggle('active');
+            });
+        });
+
+        // Функция анимации чисел
+        function animateCounter(element) {
+            const target = +element.getAttribute('data-target');
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    clearInterval(timer);
+                    current = target;
+                }
+                element.textContent = Math.floor(current);
+            }, 16);
+        }
+    </script>
 </head>
-<body class="bg-gray-50">
-    <div class="min-h-screen gradient-bg">
-        <header class="container mx-auto px-4 py-8 text-center">
-            <h1 class="text-4xl font-bold text-white mb-4">Воробей — Удивительная птица</h1>
-            <p class="text-xl text-white/80">Исследуйте мир воробьев: их жизнь, привычки и интересные факты</p>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Пропуск навигации для пользователей скринридера -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-blue-500 focus:text-white focus:px-4 focus:py-2 focus:rounded">
+        Перейти к основному содержимому
+    </a>
+    
+    <!-- Навигационное меню -->
+    <nav class="navbar" role="navigation" aria-label="Основная навигация">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-white text-xl font-bold animate-underline" aria-current="page">Воробей</a>
+            <button class="mobile-menu-btn" aria-expanded="false" aria-controls="main-nav" aria-label="Открыть/закрыть меню">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
+            <div id="main-nav" class="nav-links flex space-x-4" role="menubar">
+                <a href="#about" class="nav-link active" role="menuitem" aria-current="true">О воробьях</a>
+                <a href="#lifestyle" class="nav-link" role="menuitem">Образ жизни</a>
+                <a href="#facts" class="nav-link" role="menuitem">Интересные факты</a>
+            </div>
+        </div>
+    </nav>
+
+    <button onclick="toggleTheme()" class="theme-toggle z-50" aria-label="Переключить тему оформления">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+            <path id="sun-icon" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" class="block dark:hidden" aria-hidden="true" />
+            <path id="moon-icon" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" class="hidden dark:block" aria-hidden="true" />
+        </svg>
+    </button>
+    
+    <div class="min-h-screen gradient-bg pt-20" id="main-content">
+        <header class="container mx-auto px-4 py-8 text-center fade-in">
+            <h1 class="text-4xl font-bold text-white dark:text-gray-100 mb-4 animate-underline">Воробей — Удивительная птица</h1>
+            <p class="text-xl text-white/80 dark:text-gray-200 fade-in-delay-1">Исследуйте мир воробьев: их жизнь, привычки и интересные факты</p>
         </header>
         
         <main class="container mx-auto px-4 py-8">
-            <section class="bg-white rounded-xl shadow-lg p-8 mb-8 card-hover">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">О воробьях</h2>
+            <section id="about" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8 card-hover fade-in-delay-2" aria-labelledby="about-heading">
+                <h2 id="about-heading" class="text-3xl font-bold text-gray-800 dark:text-white mb-6 title-animation">О воробьях</h2>
                 <div class="flex flex-col md:flex-row items-center gap-8">
                     <div class="md:w-1/2">
-                        <img src="sparrow_high_quality.png" alt="Воробей" class="rounded-lg shadow-md w-full max-w-md">
+                        <img src="sparrow_high_quality.png" alt="Фотография воробья: маленькая серо-коричневая птица с черными и белыми отметинами на голове и крыльях" class="rounded-lg shadow-md w-full max-w-md pulse" loading="lazy">
                     </div>
                     <div class="md:w-1/2">
-                        <p class="text-gray-600 mb-4">
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
                             Воробьи — это небольшие птицы, которые встречаются по всему миру. Они известны своей адаптивностью и способностью жить вблизи человеческих поселений.
                         </p>
-                        <p class="text-gray-600 mb-4">
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
                             Воробьи обладают уникальными особенностями, такими как их социальное поведение и умение приспосабливаться к различным условиям окружающей среды.
                         </p>
                     </div>
                 </div>
             </section>
             
-            <section class="bg-white rounded-xl shadow-lg p-8 mb-8 card-hover">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Образ жизни</h2>
+            <section id="lifestyle" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8 card-hover fade-in-delay-2" aria-labelledby="lifestyle-heading">
+                <h2 id="lifestyle-heading" class="text-3xl font-bold text-gray-800 dark:text-white mb-6 title-animation">Образ жизни</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-gray-50 rounded-lg p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Питание</h3>
-                        <p class="text-gray-600">
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-3 animate-underline">Питание</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
                             Воробьи питаются семенами, насекомыми и остатками пищи. Они часто ищут еду на земле или вблизи человеческих поселений.
                         </p>
                     </div>
-                    <div class="bg-gray-50 rounded-lg p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Гнездование</h3>
-                        <p class="text-gray-600">
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-3 animate-underline">Гнездование</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
                             Воробьи строят гнезда в различных местах, включая деревья, кусты и даже здания. Они используют траву, ветки и другие материалы для создания уютных гнезд.
                         </p>
                     </div>
                 </div>
             </section>
             
-            <section class="bg-white rounded-xl shadow-lg p-8 mb-8 card-hover">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Интересные факты</h2>
+            <section id="facts" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8 card-hover fade-in-delay-3" aria-labelledby="facts-heading">
+                <h2 id="facts-heading" class="text-3xl font-bold text-gray-800 dark:text-white mb-6 title-animation">Интересные факты</h2>
                 <ul class="space-y-4">
-                    <li class="flex items-start gap-3">
-                        <span class="text-blue-500 font-bold">1.</span>
-                        <span class="text-gray-600">Воробьи могут жить до 5 лет в дикой природе.</span>
+                    <li class="flex items-start gap-3 fact-item">
+                        <span class="text-blue-500 dark:text-blue-400 font-bold counter" data-target="1">0</span>
+                        <span class="text-gray-600 dark:text-gray-300">Воробьи могут жить до <span class="counter" data-target="5">0</span> лет в дикой природе.</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-blue-500 font-bold">2.</span>
-                        <span class="text-gray-600">Они могут узнавать друг друга по голосу.</span>
+                    <li class="flex items-start gap-3 fact-item">
+                        <span class="text-blue-500 dark:text-blue-400 font-bold counter" data-target="2">0</span>
+                        <span class="text-gray-600 dark:text-gray-300">Они могут узнавать друг друга по голосу.</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-blue-500 font-bold">3.</span>
-                        <span class="text-gray-600">Воробьи могут летать со скоростью до 50 км/ч.</span>
+                    <li class="flex items-start gap-3 fact-item">
+                        <span class="text-blue-500 dark:text-blue-400 font-bold counter" data-target="3">0</span>
+                        <span class="text-gray-600 dark:text-gray-300">Воробьи могут летать со скоростью до <span class="counter" data-target="50">0</span> км/ч.</span>
                     </li>
                 </ul>
             </section>
         </main>
         
-        <footer class="container mx-auto px-4 py-8 text-center">
-            <p class="text-white/70">© 2026 Воробей — Удивительная птица. Все права защищены.</p>
+        <footer class="container mx-auto px-4 py-8 text-center" role="contentinfo">
+            <p class="text-white/70 dark:text-gray-400 fade-in-delay-3">© 2026 Воробей — Удивительная птица. Все права защищены.</p>
         </footer>
     </div>
 </body>

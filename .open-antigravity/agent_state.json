@@ -8,7 +8,7 @@
   },
   "crashReport": {
     "error": "[object Object]",
-    "stack": "Error\n    at file:///C:/Program%20Files/Open%20Antigravity/resources/app.asar/dist/assets/index-BlutqjdM.js:586:818",
-    "timestamp": 1769508790464
+    "stack": "Error\n    at http://localhost:3000/services/aiService.ts:35:41",
+    "timestamp": 1769510959437
   }
 }

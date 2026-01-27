@@ -9,6 +9,6 @@
   "crashReport": {
     "error": "[object Object]",
     "stack": "Error\n    at http://localhost:3000/services/aiService.ts:35:41",
-    "timestamp": 1769510959437
+    "timestamp": 1769511013427
   }
 }

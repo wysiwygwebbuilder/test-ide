@@ -1,0 +1,14 @@
+{
+  "sessionId": "02fb558c-1a58-4ae4-a96c-c8876792ec0a",
+  "lastActive": 1769508698337,
+  "status": "error",
+  "variables": {
+    "loopCount": 1,
+    "emptyResponseCount": 0
+  },
+  "crashReport": {
+    "error": "[object Object]",
+    "stack": "Error\n    at file:///C:/Program%20Files/Open%20Antigravity/resources/app.asar/dist/assets/index-BlutqjdM.js:586:818",
+    "timestamp": 1769508739952
+  }
+}

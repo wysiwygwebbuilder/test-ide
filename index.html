@@ -18,7 +18,7 @@
     <meta property="og:url" content="https://example.com/sparrow">
     <meta property="og:title" content="Воробей — Удивительная птица | Интересные факты, образ жизни, описание">
     <meta property="og:description" content="Узнайте все о воробьях: их образе жизни, привычках, интересных фактах и особенностях. Исследуйте мир этих удивительных птиц, которые окружают нас каждый день.">
-    <meta property="og:image" content="sparrow_high_quality.png">
+    <meta property="og:image" content="assets/images/sparrow_high_quality.png">
     <meta property="og:site_name" content="Воробей.info">
     
     <!-- Twitter -->
@@ -256,6 +256,95 @@
         .dark:focus {
             outline: 2px solid #60a5fa;
         }
+        
+        /* Стили галереи */
+        .gallery-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+        .gallery-item .overlay h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        .gallery-item .overlay p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+        /* Анимация появления галереи */
+        .gallery-item {
+            opacity: 0;
+            animation: galleryFadeIn 0.6s ease forwards;
+        }
+        @keyframes galleryFadeIn {
+            to { opacity: 1; }
+        }
+        /* Lightbox стили */
+        #lightbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #lightbox img {
+            animation: lightboxZoom 0.3s ease;
+        }
+        @keyframes lightboxZoom {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        /* Скрытие элементов при печати */
+        @media print {
+            #lightbox, .theme-toggle, .mobile-menu-btn {
+                display: none !important;
+            }
+        }
+    </style>
     </style>
     <script>
         // Проверяем сохраненную тему в localStorage
@@ -433,7 +522,7 @@
                 <h2 id="about-heading" class="text-3xl font-bold text-gray-800 dark:text-white mb-6 title-animation">О воробьях</h2>
                 <div class="flex flex-col md:flex-row items-center gap-8">
                     <div class="md:w-1/2">
-                        <img src="./sparrow_high_quality.png" alt="Фотография воробья: маленькая серо-коричневая птица с черными и белыми отметинами на голове и крыльях" class="rounded-lg shadow-md w-full max-w-md pulse" loading="lazy">
+                        <img src="./assets/images/sparrow_high_quality.png" alt="Фотография воробья: маленькая серо-коричневая птица с черными и белыми отметинами на голове и крыльях" class="rounded-lg shadow-md w-full max-w-md pulse" loading="lazy">
                     </div>
                     <div class="md:w-1/2">
                         <p class="text-gray-600 dark:text-gray-300 mb-4">
@@ -483,6 +572,44 @@
             </section>
         </main>
         
+        <!-- Галерея изображений -->
+        <section id="gallery" class="container mx-auto px-4 py-8" aria-labelledby="gallery-heading">
+            <h2 id="gallery-heading" class="text-3xl font-bold text-gray-800 dark:text-white mb-8 text-center title-animation">Галерея воробьев</h2>
+            <div class="gallery-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+                <!-- Изображения будут добавлены через JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Lightbox модальное окно -->
+        <div id="lightbox" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+            <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" id="lightbox-backdrop"></div>
+            <div class="relative h-full flex items-center justify-center p-4">
+                <button id="lightbox-close" class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors" aria-label="Закрыть галерею">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                <button id="lightbox-prev" class="absolute left-4 text-white hover:text-gray-300 transition-colors" aria-label="Предыдущее изображение">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <button id="lightbox-next" class="absolute right-4 text-white hover:text-gray-300 transition-colors" aria-label="Следующее изображение">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+                <div class="relative max-w-5xl max-h-full">
+                    <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
+                    <div class="mt-4 text-center">
+                        <p id="lightbox-caption" class="text-white text-lg"></p>
+                        <p id="lightbox-counter" class="text-white/70 mt-2"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="container mx-auto px-4 py-8 text-center" role="contentinfo">
         <footer class="container mx-auto px-4 py-8 text-center" role="contentinfo">
             <p class="text-white/70 dark:text-gray-400 fade-in-delay-3">© 2026 Воробей — Удивительная птица. Все права защищены.</p>
         </footer>
